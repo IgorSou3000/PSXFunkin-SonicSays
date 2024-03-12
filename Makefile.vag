@@ -1,0 +1,20 @@
+all: \
+	iso/sounds/menu/main.vags \
+	iso/sounds/stage/main.vags \
+ 	
+# VAG converts
+iso/sounds/%.vag: iso/sounds/%.ogg
+	tools/psxavenc/psxavenc -f 44100 -t vag -b 4 -c 1 -F 1 -C 0 $< $@
+	
+iso/%.vags:
+	tools/funkinarcpak/funkinarcpak $@ $^
+	
+# Menu
+iso/sounds/menu/main.vags: iso/sounds/menu/scroll.vag iso/sounds/menu/confirm.vag iso/sounds/menu/cancel.vag
+
+# Stage
+iso/sounds/stage/main.vags: iso/sounds/stage/intro0.vag iso/sounds/stage/intro1.vag iso/sounds/stage/intro2.vag iso/sounds/stage/intro3.vag
+
+clean:
+	echo "Cleaning .vag files:"
+	find iso -type f \( -name "*.vag" \) -print -delete

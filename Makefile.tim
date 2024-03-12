@@ -1,0 +1,34 @@
+all: \
+	iso/save16.tim \
+	iso/menu/menu.arc \
+	iso/menu/loading.tim \
+	iso/fonts/fonts.tim \
+	iso/hud/hud.arc \
+	iso/characters/bf/dead.tim \
+	iso/characters/sonic/main.arc \
+	iso/characters/sonic_old/main.arc \
+	iso/stages/week1/back.arc \
+
+iso/%.tim: iso/%.png
+	tools/funkintimpak/funkintimpak $@ $<
+
+iso/%.arc:
+	tools/funkinarcpak/funkinarcpak $@ $^
+	
+# HUD
+iso/hud/hud.arc: iso/hud/hud0.tim iso/hud/hud1.tim iso/hud/intro.tim
+
+# Menu
+iso/menu/menu.arc: iso/menu/back.tim iso/menu/ng.tim iso/menu/story.tim iso/menu/title.tim iso/menu/hud1.tim
+
+# Sonic
+iso/characters/sonic/main.arc: iso/characters/sonic/idle0.tim iso/characters/sonic/idle1.tim iso/characters/sonic/idle2.tim iso/characters/sonic/idle3.tim iso/characters/sonic/left0.tim iso/characters/sonic/left1.tim iso/characters/sonic/down0.tim iso/characters/sonic/down1.tim iso/characters/sonic/up0.tim iso/characters/sonic/up1.tim iso/characters/sonic/right.tim
+iso/characters/sonic_old/main.arc: iso/characters/sonic_old/idle0.tim iso/characters/sonic_old/idle1.tim iso/characters/sonic_old/idle2.tim iso/characters/sonic_old/idle3.tim iso/characters/sonic_old/idle4.tim iso/characters/sonic_old/left0.tim iso/characters/sonic_old/left1.tim iso/characters/sonic_old/left2.tim iso/characters/sonic_old/left3.tim iso/characters/sonic_old/down0.tim iso/characters/sonic_old/down1.tim iso/characters/sonic_old/down2.tim iso/characters/sonic_old/down3.tim iso/characters/sonic_old/up0.tim iso/characters/sonic_old/up1.tim iso/characters/sonic_old/up2.tim iso/characters/sonic_old/up3.tim iso/characters/sonic_old/right0.tim iso/characters/sonic_old/right1.tim iso/characters/sonic_old/right2.tim iso/characters/sonic_old/right3.tim
+
+
+# Week 1
+iso/stages/week1/back.arc: iso/stages/week1/back0.tim
+
+clean:
+	echo "Cleaning .arc and .tim files:"
+	find iso -type f \( -name "*.arc" -o -name "*.tim" \) -print -delete
